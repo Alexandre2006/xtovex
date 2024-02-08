@@ -1,3 +1,11 @@
 {
     "C_Cpp.errorSquiggles": "enabled",
+    "nrf-connect.topdir": "${nrf-connect.sdk:2.5.2}",
+    "files.associations": {
+        "gatt.h": "c",
+        "vexconf.h": "c",
+        "types.h": "c",
+        "bigtolittle.h": "c",
+        "vex_primary.h": "c"
+    },
 }

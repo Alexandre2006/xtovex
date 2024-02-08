@@ -23,14 +23,15 @@
 #include <zephyr/bluetooth/gatt.h>
 #include <zephyr/bluetooth/services/dis.h>
 
-#include "vexconf.h"
-#include "usb_serial.h"
+#include "config/vexconf.h"
+#include "usb/usb_serial.h"
+#include "bluetooth/vex_primary.h"
 
 static const struct bt_data advertisement_data[] = {
 	BT_DATA_BYTES(BT_DATA_FLAGS, (BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR)),
-	BT_DATA_BYTES(BT_DATA_BROADCAST_NAME, DEVICE_LOCAL_NAME),
-	BT_DATA_BYTES(BT_DATA_MANUFACTURER_DATA, MANUFACTURER_DATA),
-	BT_DATA_BYTES(BT_DATA_UUID128_ALL, VEX_CONTROLLER_DATA_SERVICE_UUID),
+	BT_DATA_BYTES(BT_DATA_BROADCAST_NAME, "XToVex Adapter"),
+	BT_DATA_BYTES(BT_DATA_MANUFACTURER_DATA, { 0x06, 0x77, 0x10, 0x30, 0x00, 0x59, 0x83, 0x52, 0x40, 0x00, 0x4B, 0x40, 0x00, 0x11, 0x11, 0x02, 0x8F, 0xC5, 0x83, 0x00 }),
+	BT_DATA_BYTES(BT_DATA_UUID128_ALL, {VEX_CONTROLLER_DATA_SERVICE_UUID}),
 	BT_DATA_BYTES(BT_DATA_UUID16_ALL,
 				  BT_UUID_16_ENCODE(BT_UUID_DIS_VAL))};
 
@@ -86,6 +87,15 @@ static void bt_ready(void)
 	int err;
 
 	printk("Bluetooth initialized\n");
+
+	// Register primary service
+	err = vex_primary_services_init();
+
+	if (err)
+	{
+		printk("Primary service init failed (err %d)\n", err);
+		return;
+	}
 
 	err = bt_le_adv_start(BT_LE_ADV_CONN_NAME, advertisement_data, ARRAY_SIZE(advertisement_data), NULL, 0);
 	if (err)
