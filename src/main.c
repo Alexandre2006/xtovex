@@ -138,9 +138,23 @@ int main(void)
 
 	bt_ready();
 
-	while (1)
-	{
-		k_sleep(K_SECONDS(1));
+	// while (1)
+	// {
+	// 	k_sleep(K_SECONDS(1));
+	// }
+	// return 0;
+
+	while (true) {
+		// Get current value
+		uint8_t *val = get_dataiq_value();
+
+		// Increment value
+		*val += 1;
+
+		// Set new value
+		set_dataiq_value(val);
+
+		// Wait
+		k_sleep(K_MSEC(10));
 	}
-	return 0;
 }
