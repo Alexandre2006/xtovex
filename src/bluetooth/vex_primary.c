@@ -99,19 +99,23 @@ static struct bt_gatt_attr primary_service_attrs[] = {
     BT_GATT_CHARACTERISTIC(&dataiq_uuid.uuid, BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY, BT_GATT_PERM_READ, dataiq_read_callback, NULL, dataiq_value),
     BT_GATT_DESCRIPTOR(&dataiq_uuid.uuid, BT_GATT_PERM_READ, NULL, dataiq_value, sizeof(dataiq_value)),
     BT_GATT_CCC(ccc_callback, BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
+    BT_GATT_CUD(VEX_CONTROLLER_DATA_CHARACTERISTIC_DATA_IQ_USER_DESCRIPTION, BT_GATT_PERM_READ),
 
     // Status Characteristic
     BT_GATT_CHARACTERISTIC(&status_uuid.uuid, BT_GATT_CHRC_READ | BT_GATT_CHRC_WRITE, BT_GATT_PERM_READ | BT_GATT_PERM_WRITE, status_read_callback, status_write_callback, status_value),
     BT_GATT_DESCRIPTOR(&status_uuid.uuid, BT_GATT_PERM_READ, NULL, status_value, sizeof(status_value)),
+    BT_GATT_CUD(VEX_CONTROLLER_DATA_CHARACTERISTIC_STATUS_USER_DESCRIPTION, BT_GATT_PERM_READ),
 
     // Data EDR Characteristic
     BT_GATT_CHARACTERISTIC(&dataedr_uuid.uuid, BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY, BT_GATT_PERM_READ, dataedr_read_callback, NULL, dataedr_value),
     BT_GATT_DESCRIPTOR(&dataedr_uuid.uuid, BT_GATT_PERM_READ, NULL, dataedr_value, sizeof(dataedr_value)),
     BT_GATT_CCC(ccc_callback, BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
+    BT_GATT_CUD(VEX_CONTROLLER_DATA_CHARACTERISTIC_DATA_EDR_USER_DESCRIPTION, BT_GATT_PERM_READ),
 
     // Device Status Characteristic
     BT_GATT_CHARACTERISTIC(&device_status_uuid.uuid, BT_GATT_CHRC_READ | BT_GATT_CHRC_WRITE, BT_GATT_PERM_READ | BT_GATT_PERM_WRITE, device_status_read_callback, device_status_write_callback, device_status),
     BT_GATT_DESCRIPTOR(&device_status_uuid.uuid, BT_GATT_PERM_READ, NULL, device_status, sizeof(device_status)),
+    BT_GATT_CUD(VEX_CONTROLLER_DATA_CHARACTERISTIC_DEVICE_STATUS_USER_DESCRIPTION, BT_GATT_PERM_READ),
 };
 
 // CCC Values
