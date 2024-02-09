@@ -6,6 +6,7 @@
         "vexconf.h": "c",
         "types.h": "c",
         "bigtolittle.h": "c",
-        "vex_primary.h": "c"
+        "vex_primary.h": "c",
+        "dis.h": "c"
     },
 }

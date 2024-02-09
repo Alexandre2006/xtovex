@@ -21,68 +21,72 @@ uint8_t dataedr_value[20] = VEX_CONTROLLER_DATA_CHARACTERISTIC_DATA_EDR_DEFAULT_
 uint8_t device_status[28] = VEX_CONTROLLER_DATA_CHARACTERISTIC_DEVICE_STATUS_DEFAULT_VALUE;
 
 // Callbacks
-void dataiq_read_callback(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf, uint16_t len, uint16_t offset) {
-    // Log data
-    printk("dataiq_read_callback called");
-}
-void dataiq_notify_callback(struct bt_conn * conn, uint8_t err, const void * buf, uint16_t len)
-{    // Log data
-    printk("dataiq_notify_callback called");
+ssize_t dataiq_read_callback(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf, uint16_t len, uint16_t offset) {
+    // Log Activity
+    printk("dataiq_read_callback called\n");
+
+    // Write data to buffer
+    memcpy(buf, dataiq_value, sizeof(dataiq_value));
+
+    // Return length
+    return sizeof(dataiq_value);
 }
 
-void status_read_callback(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf, uint16_t len, uint16_t offset) {
+ssize_t status_read_callback(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf, uint16_t len, uint16_t offset) {
     // Log data
     printk("status_read_callback called");
+
+    // Write data to buffer
+    memcpy(buf, status_value, sizeof(status_value));
+
+    // Return length
+    return sizeof(status_value);
 }
-void status_write_callback(struct bt_conn * conn, const struct bt_gatt_attr * attr, const void * buf, uint16_t len, uint16_t offset, uint16_t flags)
-{    // Log data
+ssize_t status_write_callback(struct bt_conn *conn, const struct bt_gatt_attr *attr, const void *buf, uint16_t len, uint16_t offset, uint8_t flags)
+{    
+    // Log data
     printk("status_write_callback called");
+
+    // Save data
+    memcpy(status_value, buf, sizeof(status_value));
+
+    // Return length
+    return sizeof(status_value);
 }
 
-void dataedr_read_callback(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf, uint16_t len, uint16_t offset) {
+ssize_t dataedr_read_callback(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf, uint16_t len, uint16_t offset)
+{
     // Log data
     printk("dataedr_read_callback called");
-}
-void dataedr_notify_callback(struct bt_conn *conn, uint8_t err, const void *buf, uint16_t len) {
-    // Log data
-    printk("dataedr_notify_callback called");
+
+    // Write data to buffer
+    memcpy(buf, dataedr_value, sizeof(dataedr_value));
+
+    // Return length
+    return sizeof(dataedr_value);
 }
 
-void device_status_read_callback(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf, uint16_t len, uint16_t offset) {
+ssize_t device_status_read_callback(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf, uint16_t len, uint16_t offset)
+{
     // Log data
     printk("device_status_read_callback called");
+
+    // Write data to buffer
+    memcpy(buf, device_status, sizeof(device_status));
+
+    // Return length
+    return sizeof(device_status);
 }
-void device_status_write_callback(struct bt_conn * conn, const struct bt_gatt_attr * attr, const void * buf, uint16_t len, uint16_t offset, uint16_t flags){
+ssize_t device_status_write_callback(struct bt_conn *conn, const struct bt_gatt_attr *attr, const void *buf, uint16_t len, uint16_t offset, uint8_t flags)
+{
     // Log data
     printk("device_status_write_callback called");
-}
 
-// Setters
-void set_dataiq_value(uint8_t * value, uint16_t len){
-    memcpy(dataiq_value, value, sizeof(dataiq_value));
-}
-void set_status_value(uint8_t *value, uint16_t len) {
-    memcpy(status_value, value, sizeof(status_value));
-}
-void set_dataedr_value(uint8_t *value, uint16_t len) {
-    memcpy(dataedr_value, value, sizeof(dataedr_value));
-}
-void set_device_status(uint8_t *value, uint16_t len) {
-    memcpy(device_status, value, sizeof(device_status));
-}
+    // Save data
+    memcpy(device_status, buf, sizeof(device_status));
 
-// Getters
-uint8_t *get_dataiq_value() {
-    return dataiq_value;
-}
-uint8_t *get_status_value() {
-    return status_value;
-}
-uint8_t *get_dataedr_value() {
-    return dataedr_value;
-}
-uint8_t *get_device_status() {
-    return device_status;
+    // Return length
+    return sizeof(device_status);
 }
 
 // Initialization

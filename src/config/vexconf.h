@@ -2,7 +2,7 @@
 // All UUIDs are in little-endian format (reversed order)
 
 // MAC ADDRESS
-#define MAC_ADDRESS "A4:34:F1:7F:24:9F"
+#define MAC_ADDRESS "A4:34:F1:7F:24:99"
 
 /*
  * Device Info:

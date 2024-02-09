@@ -1,11 +1,3 @@
-/* main.c - Application main entry point */
-
-/*
- * Copyright (c) 2015-2016 Intel Corporation
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 #include <zephyr/types.h>
 #include <stddef.h>
 #include <string.h>
@@ -29,7 +21,6 @@
 
 static const struct bt_data advertisement_data[] = {
 	BT_DATA_BYTES(BT_DATA_FLAGS, (BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR)),
-	BT_DATA_BYTES(BT_DATA_BROADCAST_NAME, "XToVex Adapter"),
 	BT_DATA_BYTES(BT_DATA_MANUFACTURER_DATA, { 0x06, 0x77, 0x10, 0x30, 0x00, 0x59, 0x83, 0x52, 0x40, 0x00, 0x4B, 0x40, 0x00, 0x11, 0x11, 0x02, 0x8F, 0xC5, 0x83, 0x00 }),
 	BT_DATA_BYTES(BT_DATA_UUID128_ALL, {VEX_CONTROLLER_DATA_SERVICE_UUID}),
 	BT_DATA_BYTES(BT_DATA_UUID16_ALL,
